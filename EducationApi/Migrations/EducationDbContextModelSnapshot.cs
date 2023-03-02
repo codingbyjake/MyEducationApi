@@ -45,6 +45,9 @@ namespace EducationApi.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Code")
+                        .IsUnique();
+
                     b.ToTable("MAJOR");
                 });
 
@@ -57,7 +60,7 @@ namespace EducationApi.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<decimal>("GPA")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(3,2)");
 
                     b.Property<int>("MajorId")
                         .HasColumnType("int");
@@ -85,12 +88,17 @@ namespace EducationApi.Migrations
             modelBuilder.Entity("EducationApi.Models.STUDENT", b =>
                 {
                     b.HasOne("EducationApi.Models.MAJOR", "MAJOR")
-                        .WithMany()
+                        .WithMany("STUDENTs")
                         .HasForeignKey("MajorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("MAJOR");
+                });
+
+            modelBuilder.Entity("EducationApi.Models.MAJOR", b =>
+                {
+                    b.Navigation("STUDENTs");
                 });
 #pragma warning restore 612, 618
         }

@@ -34,7 +34,7 @@ namespace EducationApi.Migrations
                     Name = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     StateCode = table.Column<string>(type: "nvarchar(2)", maxLength: 2, nullable: false),
                     SAT = table.Column<int>(type: "int", nullable: true),
-                    GPA = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    GPA = table.Column<decimal>(type: "decimal(3,2)", nullable: false),
                     MajorId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -47,6 +47,12 @@ namespace EducationApi.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MAJOR_Code",
+                table: "MAJOR",
+                column: "Code",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_STUDENT_MajorId",
